@@ -50,6 +50,7 @@
       <span aria-hidden="true"></span>
     </a>
   </div>
+<!--
   <div class="navbar-menu">
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
       <a class="navbar-item" href="https://keunhong.com">
@@ -58,6 +59,7 @@
       </span>
       </a>
 
+      
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
           More Research
@@ -76,7 +78,7 @@
             PhotoShape
           </a>
         </div>
-      </div>
+      </div>-->
     </div>
 
   </div>
@@ -88,29 +90,21 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Nerfies: Deformable Neural Radiance Fields</h1>
+          <h1 class="title is-1 publication-title">CS 184 Final Project Proposal: Text to 3D Cloud Point Simulator</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="https://keunhong.com">Keunhong Park</a><sup>1</sup>,</span>
+              <p>Ralph Cao, </p></span>
             <span class="author-block">
-              <a href="https://utkarshsinha.com">Utkarsh Sinha</a><sup>2</sup>,</span>
+              <p>Arjun Damerla, </p></span>
             <span class="author-block">
-              <a href="https://jonbarron.info">Jonathan T. Barron</a><sup>2</sup>,
+              <p>Preston Fu, </p>
             </span>
             <span class="author-block">
-              <a href="http://sofienbouaziz.com">Sofien Bouaziz</a><sup>2</sup>,
+              <p>Julia Sun</p>
             </span>
-            <span class="author-block">
-              <a href="https://www.danbgoldman.com">Dan B Goldman</a><sup>2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="https://homes.cs.washington.edu/~seitz/">Steven M. Seitz</a><sup>1,2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="http://www.ricardomartinbrualla.com">Ricardo Martin-Brualla</a><sup>2</sup>
-            </span>
+  
           </div>
-
+          <!-- 
           <div class="is-size-5 publication-authors">
             <span class="author-block"><sup>1</sup>University of Washington,</span>
             <span class="author-block"><sup>2</sup>Google Research</span>
@@ -118,7 +112,7 @@
 
           <div class="column has-text-centered">
             <div class="publication-links">
-              <!-- PDF Link. -->
+              
               <span class="link-block">
                 <a href="https://arxiv.org/pdf/2011.12948"
                    class="external-link button is-normal is-rounded is-dark">
@@ -137,7 +131,7 @@
                   <span>arXiv</span>
                 </a>
               </span>
-              <!-- Video Link. -->
+              
               <span class="link-block">
                 <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
                    class="external-link button is-normal is-rounded is-dark">
@@ -147,7 +141,7 @@
                   <span>Video</span>
                 </a>
               </span>
-              <!-- Code Link. -->
+              
               <span class="link-block">
                 <a href="https://github.com/google/nerfies"
                    class="external-link button is-normal is-rounded is-dark">
@@ -157,7 +151,7 @@
                   <span>Code</span>
                   </a>
               </span>
-              <!-- Dataset Link. -->
+              
               <span class="link-block">
                 <a href="https://github.com/google/nerfies/releases/tag/0.1"
                    class="external-link button is-normal is-rounded is-dark">
@@ -249,47 +243,27 @@
   </div>
 </section>
 
-
+-->
 <section class="section">
   <div class="container is-max-desktop">
     <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
+        <h2 class="title is-3">Overview</h2>
         <div class="content has-text-justified">
           <p>
-            We present the first method capable of photorealistically reconstructing a non-rigidly
-            deforming scene using photos/videos captured casually from mobile phones.
-          </p>
-          <p>
-            Our approach augments neural radiance fields
-            (NeRF) by optimizing an
-            additional continuous volumetric deformation field that warps each observed point into a
-            canonical 5D NeRF.
-            We observe that these NeRF-like deformation fields are prone to local minima, and
-            propose a coarse-to-fine optimization method for coordinate-based models that allows for
-            more robust optimization.
-            By adapting principles from geometry processing and physical simulation to NeRF-like
-            models, we propose an elastic regularization of the deformation field that further
-            improves robustness.
-          </p>
-          <p>
-            We show that <span class="dnerf">Nerfies</span> can turn casually captured selfie
-            photos/videos into deformable NeRF
-            models that allow for photorealistic renderings of the subject from arbitrary
-            viewpoints, which we dub <i>"nerfies"</i>. We evaluate our method by collecting data
-            using a
-            rig with two mobile phones that take time-synchronized photos, yielding train/validation
-            images of the same pose at different viewpoints. We show that our method faithfully
-            reconstructs non-rigidly deforming scenes and reproduces unseen views with high
-            fidelity.
+            Given a text input, we will generate a particle simulator where randomly positioned particles 
+            will transform into a 3D cloud point structure representing the input text through swarm 
+            intelligence. For example, if the text input was “apple”, the original particles will map to a 
+            new position to spell out “apple” in a 3D format.  
           </p>
         </div>
       </div>
     </div>
     <!--/ Abstract. -->
 
-    <!-- Paper video. -->
+
+    <!-- Paper video. 
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Video</h2>
@@ -299,17 +273,233 @@
         </div>
       </div>
     </div>
-    <!--/ Paper video. -->
+    / Paper video. -->
   </div>
 </section>
 
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Project Description</h2>
+        <div class="content has-text-justified">
+          <p>
+            Particle simulation is important as it is used very often when rendering images in the real
+            world and the entertainment industry. It is a vital technique that is used in VR/AR, gaming, 
+            generating celestial bodies for space exploration, and also animation. In fact, the inspiration 
+            behind this project came from a scene in Finding Nemo where a school of fish clustered together 
+            to form different images. 
+          </p>
 
+          <div align="middle">
+            <table style="width:100%">
+              <tr align="center">
+                <td>
+                  <img src="nemo1.png" align="middle" width="400px"/>
+                  <figcaption>School of moonfish forming Marlin</figcaption>
+                </td>
+                <td>
+                  <img src="nemo2.png" align="middle" width="400px"/>
+                  <figcaption>School of moonfish forming an octopus</figcaption>
+                </td>
+              </tr>
+            </table>
+         </div>
+
+          <p>
+            However, creating a particle simulator is challenging because it involves controlling the behavior 
+            of a large collection of objects that are mutually dependent and highly interactive with one another. 
+            This leads to a problem that is innately computationally intensive. 
+          </p>
+          <p>
+            To solve this issue, we plan to utilize a modified boids model to control the movement of individual 
+            particles while also taking into account the position and movement of neighboring particles. We will 
+            try different algorithmic approaches to force convergence to a point cloud generated by the Point-E 
+            3D point cloud ML model to simulate random particles into a recognizable structural image based on 
+            a text input. We will also likely need to implement an upsampling/downsampling algorithm for the 
+            point cloud to support different numbers of boids as well as different granularities of the generated 
+            point cloud.
+          </p>
+
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <!-- Abstract. -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Goals and Deliverables</h2>
+            <div class="content has-text-justified">
+              <ul>
+                <li> <h3 align="left">Baseline Plan</h3>
+                    <ul>
+                        <li>Initially, our interactive system will consist of particles randomly flocking in 
+                          our display. The user will be able to enter a text prompt and we plan to use the Point-E 
+                          3D point cloud ML model to transform the randomly positioned particles into a structured 
+                          image corresponding to the text prompt. To ensure all particle points are continuously mapped 
+                          to their 3D point cloud, we will program a flocking algorithm so that each particle will move 
+                          based on its neighboring particles’ positions and velocities. It is likely that we will want 
+                          to change the type of particles mapped to the 3D point cloud to generate more interesting and 
+                          unique particle simulations. In that case, we will implement material modeling to alter the 
+                          particle types.</li>
+                        <li>If the ML model takes too long to run, we can alternatively pregenerate point clouds and 
+                          allow the user to switch between point clouds through input. </li>
+                        <li>A potential issue we may encounter is whether or not the number of points is customizable. 
+                          If it is not, we plan to integrate an algorithm to reduce the number of points. We can measure 
+                          the quality and performance of our system by testing how long the model takes to run and how 
+                          smoothly the particles map to their corresponding locations in the point cloud while minimizing 
+                          path crossings.</li>
+                    </ul>
+                    <br>
+                </li>
+                <li> <h3 align="left">Aspirational Plan</h3>
+                    <ul>
+                        <li>If our original particle simulation is successful and we get ahead of schedule, we would want 
+                          to implement a snowglobe where the particles are suspended in fluid i.e particles are assigned 
+                          different gravities. For these new particles, we can apply a new particle simulator. One option 
+                          is to implement a 3D fluid solver which utilizes both the Particle-In-Cell (PIC) and FLuid Implicit 
+                          Particle (FLIP) methods to create liquid simulation with parameters for gravity and viscosity. 
+                          Another particle simulator we can use is the Position Based Fluids algorithm to generate a liquid 
+                          effect. This algorithm implements CUDA acceleration and achieves 60fps simulation for thousands of 
+                          particles. However, we may need to make some adjustments to these implementations if our new particles 
+                          interact poorly with the existing ones.</li>
+                        <li>We could also support upsampling of the point cloud so that the program can be run with larger amounts of boids.</li>
+                    </ul>
+                </li>
+            </ul>
+    
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <section class="section">
+          <div class="container is-max-desktop">
+            <!-- Abstract. -->
+            <div class="columns is-centered has-text-centered">
+              <div class="column is-four-fifths">
+                <h2 class="title is-3">Schedule</h2>
+                <div class="content has-text-justified">
+                  <ul>
+                    <li> <h3 align="left">4/2 - 4/8:</h3>
+                        <ul>
+                            <li>Submit project proposal</li>
+                            <li>Look into academic works relating to particle simulators</li>
+                            <li>Study open source projects related to Point-E 3D point cloud models, material modeling, 
+                              and other models we plan to use</li>
+                            <li>Create some pseudocode and outline how our code will be formatted</li>
+                        </ul>
+                        <br>
+                    </li>
+                    <li> <h3 align="left">4/9 - 4/15</h3>
+                        <ul>
+                            <li>Program the initial state of particles that are randomly generated positioned</li>
+                            <li>Implement the input text feature </li>
+                            <li>Begin implementing Point-E 3D point cloud model</li>
+                            <li>Brainstorm flocking algorithm and material modeling</li>
+                            <li>Start creating the Milestone Deliverable </li>
+                
+                        </ul>
+                        <br>
+                    </li>
+                    <li> <h3 align="left">4/16 - 4/22</h3>
+                        <ul>
+                            <li>Submit Milestone Deliverable</li>
+                            <li>Finalize the Point-E 3D point cloud model </li>
+                            <li>Implement flocking algorithm and material modeling</li>
+                        </ul>
+                        <br>
+                    </li>
+                    <li> <h3 align="left">4/23 - 4/29</h3>
+                        <ul>
+                            <li>Finalize the complete particle simulator            </li>
+                            <li>Program any additional algorithms/models if time permits </li>
+                            <li>Create final video, web page, and paper</li>
+                        </ul>
+                        <br>
+                    </li>
+                    <li> <h3 align="left">4/30 - 5/3</h3>
+                        <ul>
+                            <li>Submit Final Deliverable </li>
+                            <li>Practice for final presentation </li>
+                        </ul>
+                    </li>
+                </ul>       
+              </div>
+                </div>
+              </div>
+            </div>
+
+
+            <section class="section">
+              <div class="container is-max-desktop">
+                <!-- Abstract. -->
+                <div class="columns is-centered has-text-centered">
+                  <div class="column is-four-fifths">
+                    <h2 class="title is-3">Resources</h2>
+                    <div class="content has-text-justified">
+                      <p>We plan to utilize multiple online resources and websites when implementing our particle 
+                        simulator. Here is a comprehensive list of the models/algorithms we plan to use and their 
+                        corresponding references.</p> 
+                          <ul>
+                              <li> Point-E 3D point cloud model
+                                  <ul>
+                                      <li> <a href="https://github.com/openai/point-e">Point cloud diffusion for 3D model synthesis</a> </li>
+                                  </ul>
+                                  
+                              </li>
+                              <li> Point Cloud Upsampling</h3>
+                                  <ul>
+                                      <li><a href="https://www.mdpi.com/1999-4893/15/4/124">Point Cloud Upsampling Algorithm: A Systematic Review</a> </li></li>
+                                  </ul>
+                                  
+                              </li>
+                              <li> Flocking Algorithm</h3>
+                                  <ul>
+                                      <li><a href="http://red3d.com/cwr/boids/">Boids: Background and Update</a></li>
+                                      <li><a href="https://manlaig.github.io/flock-simulation/">Flock, Low-depth Ocean, and Wave Simulation</a></li>
+                                  </ul>
+                                 
+                              </li>
+                              <li> Material Modeling</h3>
+                                  <ul>
+                                      <li><a href="https://github.com/mgg39/2D-and-3D-modelling-of-superconducting-and-non-superconducting-particles-within-a-random-material">Modelling of 2D and 3D randomly generated material conductivity at a particle scale</a></li>
+                                  </ul>
+                                  
+                              </li>
+                              <li> PIC and FLIP</h3>
+                                  <ul>
+                                      <li><a href="https://cal-cs184-student.github.io/project-webpages-sp23-CardiacMangoes/finalProject/index.html#Code">FLIPing Fluids</a></li>
+                                  </ul>
+                                  
+                              </li>
+                              <li> Position Based Fluids algorithm</h3>
+                                  <ul>
+                                      <li><a href="https://ctknight.github.io/FluidSimulator/">Position Based Fluid Simulation and Surface Rendering</a></li>
+                                  </ul>
+                              </li>
+                          </ul>
+                          <br>
+                          <p>
+                              To program our project, we plan to use our personal laptops and use GitHub to collaborate and share our code with each other. 
+                          </p>
+                    </div>
+                  </div>
+                </div>
+        
+    
+
+<!-- 
 <section class="section">
   <div class="container is-max-desktop">
 
     <div class="columns is-centered">
 
-      <!-- Visual Effects. -->
+      Visual Effects. 
       <div class="column">
         <div class="content">
           <h2 class="title is-3">Visual Effects</h2>
@@ -323,9 +513,9 @@
           </video>
         </div>
       </div>
-      <!--/ Visual Effects. -->
+     
 
-      <!-- Matting. -->
+     
       <div class="column">
         <h2 class="title is-3">Matting</h2>
         <div class="columns is-centered">
@@ -343,14 +533,14 @@
         </div>
       </div>
     </div>
-    <!--/ Matting. -->
+    / Matting. -->
 
-    <!-- Animation. -->
+    <!-- Animation. 
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Animation</h2>
+        <h2 class="title is-3">Animation</h2>-->
 
-        <!-- Interpolating. -->
+        <!-- Interpolating. 
         <h3 class="title is-4">Interpolating states</h3>
         <div class="content has-text-justified">
           <p>
@@ -382,9 +572,9 @@
           </div>
         </div>
         <br/>
-        <!--/ Interpolating. -->
+        / Interpolating. -->
 
-        <!-- Re-rendering. -->
+        <!-- Re-rendering. 
         <h3 class="title is-4">Re-rendering the input video</h3>
         <div class="content has-text-justified">
           <p>
@@ -403,14 +593,15 @@
                     type="video/mp4">
           </video>
         </div>
-        <!--/ Re-rendering. -->
+        Re-rendering. 
 
       </div>
     </div>
-    <!--/ Animation. -->
+      -->
+   
 
 
-    <!-- Concurrent Work. -->
+    <!--Concurrent Work. 
     <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Related Links</h2>
@@ -434,8 +625,8 @@
           </p>
         </div>
       </div>
-    </div>
-    <!--/ Concurrent Work. -->
+    </div> -->
+    <!--/ Concurrent Work. 
 
   </div>
 </section>
@@ -483,7 +674,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>-->
 </footer>
 
 </body>
