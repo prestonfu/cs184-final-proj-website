@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="description"
+      content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos."
+    />
+    <meta name="keywords" content="Nerfies, D-NeRF, NeRF" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CS 184 Final Project: Text to 3D Cloud Point Simulator</title>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      gtag("js", new Date());
+
+      gtag("config", "G-PYVRSFMDRL");
+    </script>
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css" />
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css" />
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css" />
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css"
+    />
+    <link rel="stylesheet" href="./static/css/index.css" />
+    <link rel="icon" href="./static/images/favicon.jpg" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+  </head>
+  <body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title is-1 publication-title">
+                CS 184 Final Project Proposal: Text to 3D Cloud Point Simulator
+              </h1>
+              <div class="is-size-5 publication-authors">
+                <span class="author-block"> <p>Ralph Cao,</p></span>
+                <span class="author-block"> <p>Arjun Damerla,</p></span>
+                <span class="author-block">
+                  <p>Preston Fu,</p>
+                </span>
+                <span class="author-block">
+                  <p>Julia Sun</p>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <div class="content has-text-justified">
+              <div align="middle">
+                <h4>Point-E 3D point cloud model</h4>
+              </div>
+              <p>
+                Our method and preliminary results are shown in the figure
+                below. All of the images were generated using the Point-E 1B
+                model, with 1024 points and a 40M parameter model for upsampling
+                to 4096 points. In general, we find that the 300M and 1B model
+                have comparable performance; for future prompts, we intend to
+                use the 300M model due to computational cost.
+              </p>
+              <div align="middle">
+                <img
+                  src="static/images/pointcloudgeneration-proj.png"
+                  align="middle"
+                  width="700px"
+                />
+              </div>
+              <br />
+              <p>
+                Below are some demonstrations of our approach. We find that
+                Point-E 300M is sufficient for most use cases but may miss
+                fine-grained detail. Point-E 1B captures some of this, but has
+                some common failure modes, i.e. points are overly concentrated
+                in some regions, or do not model the shapes of the objects well.
+                However, we see through the modeling of disjoint objects in the
+                family of deer that Point-E learns fairly strong priors.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div align="middle">
+        <table style="width: 70%">
+          <tr align="center">
+            <td>
+              <img
+                src="static/images/postprocessed/deer.png"
+                align="middle"
+                width="300px"
+              />
+            </td>
+            <td>
+              <img
+                src="static/images/postprocessed/eiffel.png"
+                align="middle"
+                width="300px"
+              />
+            </td>
+            <td>
+              <img
+                src="static/images/postprocessed/moai.png"
+                align="middle"
+                width="300px"
+              />
+            </td>
+            <td>
+              <img
+                src="static/images/postprocessed/rubiks.png"
+                align="middle"
+                width="300px"
+              />
+            </td>
+          </tr>
+          <tr align="center">
+            <td>
+              <img
+                src="static/images/point-cloud/deer.png"
+                align="middle"
+                width="300px"
+              />
+            </td>
+            <td>
+              <img
+                src="static/images/point-cloud/eiffel.png"
+                align="middle"
+                width="300px"
+              />
+            </td>
+            <td>
+              <img
+                src="static/images/point-cloud/moai.png"
+                align="middle"
+                width="300px"
+              />
+            </td>
+            <td>
+              <img
+                src="static/images/point-cloud/rubiks.png"
+                align="middle"
+                width="300px"
+              />
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <br />
+
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <div class="content has-text-justified">
+              <div align="middle">
+                <h4>Flocking</h4>
+              </div>
+              <p>
+                We wrote a basic flocking algorithm in Unity and C# with
+                Separation, Cohesion, Alignment, Containment, and Arrival forces
+                using the modified Euler method for simulation. For each force
+                we have a different radius and we are computing neighborhoods
+                that ignore boids behind the current boid to simulate line of
+                sight. We’ve also spent time trying to tweak the parameters for
+                each of these to achieve a presentable simulation.
+              </p>
+              <p>
+                We have a script to convert npz files into jsons that can be
+                read by C# or C++ to load in target positions for the Arrival
+                force of each boid.
+              </p>
+
+              <br />
+
+              <div align="middle">
+                <h4>Ray marching</h4>
+              </div>
+              <p>
+                We have programmed a ray marching algorithm, in the hopes of
+                optimizing rendering
+              </p>
+              <p>
+                Also decided to use the camera and GUI codebase from homework 3
+                to test our implementation.
+              </p>
+              <p>
+                Instead of rendering one image at a time with the camera in one
+                position, we wanted our display to continuously render new
+                images in real time with the ability to also change the camera
+                position in between rendering.
+              </p>
+              <p>
+                We were able to achieve this by editing the rendering files in
+                application.cpp. The resulting display renders images a bit
+                slowly, but we believe we can improve the rendering time by
+                adding BVH to our ray marching algorithm
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <div class="content">
+              <p>
+                The website design is adapted from
+                <a href="https://github.com/nerfies/nerfies.github.io">here</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
