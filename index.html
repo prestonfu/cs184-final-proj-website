@@ -4,9 +4,8 @@
     <meta charset="utf-8" />
     <meta
       name="description"
-      content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos."
+      content="Accelerated Ray Tracing and Enhanced Marching for Integrated flocking with point cloudS"
     />
-    <meta name="keywords" content="Nerfies, D-NeRF, NeRF" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ARTEMIS, CS 184 Final Project</title>
 
@@ -56,7 +55,7 @@
       href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css"
     />
     <link rel="stylesheet" href="./static/css/index.css" />
-    <link rel="icon" href="./static/images/favicon.jpg" />
+    <link rel="icon" href="./static/images/favicon.png" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script defer src="./static/js/fontawesome.all.min.js"></script>
@@ -220,7 +219,7 @@
                   <span class="icon">
                     <i class="fab fa-youtube"></i>
                   </span>
-                  <span>Video</span>
+                  <span>Showcase video</span>
                 </a>
               </span>
               <!--
@@ -273,18 +272,21 @@
           <div class="column">
             <div align="center">
               <video width="720" height="640" controls>
-                <source
-                  src="static/videos/demo.mp4"
-                  type="video/mp4"
-                />
+                <source src="static/videos/demo.mp4" type="video/mp4" />
               </video>
+              <!-- <img
+                src="static/gifs/demo.gif"
+                align="middle"
+                width="720px"
+                height="640px"
+              /> -->
             </div>
           </div>
         </div>
       </div>
 
       <br />
-      <div class="container is-max-desktop">
+      <div class="container is-max-desktop" style="margin-top: 2em">
         <div class="columns is-centered has-text-centered">
           <div class="column">
             <h2 class="title is-3">Abstract</h2>
@@ -304,22 +306,26 @@
                 with soft shadows.
               </p>
 
-             <p>Our ray tracing and smoothed ray marching algorithm support large 
-              point clouds, interactive camera movements. Furthermore, we implemented 
-              a pipeline using pre-trained machine learning models to generate 3D point 
-              clouds from text. In order to accelerate our rendering, we utilized a wide 
-              array of optimization techniques, including using GPU acceleration from the 
-              OpenCL framework, BVH trees, and Morton codes for Z-order space-filling curves. 
-              We also implemented a boid flocking algorithm with a force toward our 
-              pre-generated point clouds, which smoothly interpolates boid positions and colors. 
-              With 4096 boids, we achieve 60 FPS, a 2-3x speedup over ray tracing without 
-              acceleration.</p>
+              <p>
+                Our ray tracing and smoothed ray marching algorithm support
+                large point clouds, interactive camera movements. Furthermore,
+                we implemented a pipeline using pre-trained machine learning
+                models to generate 3D point clouds from text. In order to
+                accelerate our rendering, we utilized a wide array of
+                optimization techniques, including using GPU acceleration from
+                the OpenCL framework, BVH trees, and Morton codes for Z-order
+                space-filling curves. We also implemented a boid flocking
+                algorithm with a force toward our pre-generated point clouds,
+                which smoothly interpolates boid positions and colors. With 4096
+                boids, we achieve 60 FPS, compared to several seconds per frame
+                without acceleration.
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="container is-max-desktop">
+      <div class="container is-max-desktop" style="margin-top: 2em">
         <div class="columns is-centered has-text-centered">
           <div class="column">
             <h2 class="title is-3">Point Clouds</h2>
@@ -411,7 +417,7 @@
                 <img
                   src="static/images/flocking.png"
                   align="middle"
-                  width="500px"
+                  width="400px"
                 />
               </div>
               <br />
@@ -519,11 +525,9 @@
 
               <div align="center">
                 <video width="640" height="560" controls>
-                  <source
-                    src="static/videos/smooth_whale.mov"
-                  />
+                  <source src="static/videos/smooth_whale.mov" />
                 </video>
-                <figcaption>Image of Blue Whale with Boid Smoothing</figcaption>
+                <figcaption>Blue Whale with boid smoothing</figcaption>
               </div>
             </div>
           </div>
@@ -606,23 +610,36 @@
                   discontinuous work groups and thus excessively large bounding
                   boxes.
                 </li>
-  
               </ul>
-              <p>Here we have GIFs of a whale under BVH and Morton acceleration. </p>
-                  <div align="middle">
-                    <table style="width: 100%">
-                      <tr align="center">
-                        <td>
-                          <img src="static/gifs/high_bvh_whale.gif" align="middle" width="400px" height="400px" />
-                          <figcaption>BVH Acceleration</figcaption>
-                        </td>
-                        <td>
-                          <img src="static/gifs/morton_whale.gif" align="middle" width="400px" height="400px" />
-                          <figcaption>Morton Acceleration</figcaption>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
+              <p>
+                Below are demonstrations of our approach (this mode is available
+                with a keyboard toggle), where each color represents a work
+                group.
+              </p>
+              <div align="middle">
+                <table style="width: 100%">
+                  <tr align="center">
+                    <td>
+                      <img
+                        src="static/gifs/high_bvh_whale.gif"
+                        align="middle"
+                        width="400px"
+                        height="400px"
+                      />
+                      <figcaption>BVH Acceleration</figcaption>
+                    </td>
+                    <td>
+                      <img
+                        src="static/gifs/morton_whale.gif"
+                        align="middle"
+                        width="400px"
+                        height="400px"
+                      />
+                      <figcaption>Morton Acceleration</figcaption>
+                    </td>
+                  </tr>
+                </table>
+              </div>
 
               <br />
               <h4>Limitations</h4>
@@ -636,11 +653,12 @@
                 advanced ray tracing techniques.
               </p>
               <p>
-                OpenCL also does not have a build in random function, so we had 
-                to use a #define macro and some bit tricks found online to make a 
-                custom pseudorandom number generator that could generate multiple 
-                random numbers in a thread in a row, and maintain randomness between 
-                kernel dispatches by saving the random seed to a buffer between frames.
+                OpenCL also does not have a build in random function, so we had
+                to use a #define macro and some bit tricks found online to make
+                a custom pseudorandom number generator that could generate
+                multiple random numbers in a thread in a row, and maintain
+                randomness between kernel dispatches by saving the random seed
+                to a buffer between frames.
               </p>
             </div>
           </div>
@@ -732,12 +750,14 @@
                 1 ray per pixel, and 4 light sample per pixel.
               </p>
               <p>
-                We implemented a basic BVH of depth 4 with binary splits along the longest 
-                axis of the bounding box. This gave us 16 leaves of size 256, which matches 
-                the size of each work group. We also attempted to sort the points along the 
-                Z-order curve, which is a space filling curve. In this way, points within each 
-                contiguous chunk of 256 should be close to each other.
+                We implemented a basic BVH of depth 4 with binary splits along
+                the longest axis of the bounding box. This gave us 16 leaves of
+                size 256, which matches the size of each work group. We also
+                attempted to sort the points along the Z-order curve, which is a
+                space filling curve. In this way, points within each contiguous
+                chunk of 256 should be close to each other.
               </p>
+              <p>This optimization gave us a 3.2x speedup.</p>
               <div align="center">
                 <table>
                   <tr>
@@ -778,16 +798,19 @@
                 Our experiments use ray tracing without light blocking 4096
                 boids, 4 ray per pixel, and 4 light sample per pixel.
               </p>
-              <p>Memory from the host program on the CPU must be uploaded to the 
-                global memory of the GPU, but each work group on the GPU has access 
-                to a shared local memory within the work group that is faster. We can 
-                take advantage of this by having each thread fetch data from global memory 
-                in parallel to local memory, and then running all required $O(n)$ 
-                operations on local memory instead. Between these fetches, we must also 
-                call barrier() to ensure thread synchronization within the work group.</p>
+              <p>
+                Memory from the host program on the CPU must be uploaded to the
+                global memory of the GPU, but each work group on the GPU has
+                access to a shared local memory within the work group that is
+                faster. We can take advantage of this by having each thread
+                fetch data from global memory in parallel to local memory, and
+                then running all required $O(n)$ operations on local memory
+                instead. Between these fetches, we must also call barrier() to
+                ensure thread synchronization within the work group.
+              </p>
 
               <p>This optimization gave us about a 33% speedup.</p>
-             
+
               <div align="center">
                 <table>
                   <tr>
@@ -820,88 +843,149 @@
           <div class="column">
             <h2 class="title is-3">Gallery</h2>
             <div class="content has-text-justified"></div>
-
           </div>
         </div>
       </div>
 
-    
-        <div align="middle">
-          <table style="width: 90%">
-            <tr align="center">
-              <td>
-                <img src="static/gallery/basketball.png" align="middle" width="500px" height="500px" />
-                <figcaption>Giant Basketball Dunking on Hoop of Pretzels</figcaption>
-              </td>
-              <td>
-                <img src="static/gallery/camera.png" align="middle" width="500px" height="500px" />
-                <figcaption>Digital Camera on a Tripod</figcaption>
-              </td>
-              <td>
-                <img src="static/gallery/cupcake.png" align="middle" width="500px" height="500px" />
-                <figcaption>Cupcake Wearing Boxing Gloves</figcaption>
-              </td>
-            </tr>
-          </table>
-        </div>
+      <div align="middle">
+        <table style="width: 90%">
+          <tr align="center">
+            <td>
+              <img
+                src="static/gallery/basketball.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>
+                Giant Basketball Dunking on Hoop of Pretzels
+              </figcaption>
+            </td>
+            <td>
+              <img
+                src="static/gallery/camera.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>Digital Camera on a Tripod</figcaption>
+            </td>
+            <td>
+              <img
+                src="static/gallery/cupcake.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>Cupcake Wearing Boxing Gloves</figcaption>
+            </td>
+          </tr>
+        </table>
+      </div>
 
-        <div align="middle">
-          <table style="width: 90%">
-            <tr align="center">
-              <td>
-                <img src="static/gallery/godzilla_battle.png" align="middle" width="500px" height="500px" />
-                <figcaption>Godzilla Battling Giant Soup Can</figcaption>
-              </td>
-              <td>
-                <img src="static/gallery/guitar.png" align="middle" width="500px" height="500px" />
-                <figcaption>Guitar</figcaption>
-              </td>
-              <td>
-                <img src="static/gallery/monster.png" align="middle" width="500px" height="500px" />
-                <figcaption>Lochness Monster Knitting a Sweater for Nessie</figcaption>
-              </td>
-            </tr>
-          </table>
-        </div>
+      <div align="middle">
+        <table style="width: 90%">
+          <tr align="center">
+            <td>
+              <img
+                src="static/gallery/godzilla_battle.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>Godzilla Battling Giant Soup Can</figcaption>
+            </td>
+            <td>
+              <img
+                src="static/gallery/guitar.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>Guitar</figcaption>
+            </td>
+            <td>
+              <img
+                src="static/gallery/monster.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>
+                Lochness Monster Knitting a Sweater for Nessie
+              </figcaption>
+            </td>
+          </tr>
+        </table>
+      </div>
 
-        <div align="middle">
-          <table style="width: 90%">
-            <tr align="center">
-              <td>
-                <img src="static/gallery/octopus.png" align="middle" width="500px" height="500px" />
-                <figcaption>Octopus</figcaption>
-              </td>
-              <td>
-                <img src="static/gallery/panda.png" align="middle" width="500px" height="500px" />
-                <figcaption>Panda</figcaption>
-              </td>
-              <td>
-                <img src="static/gallery/roses.png" align="middle" width="500px" height="500px" />
-                <figcaption>Boquet of Roses</figcaption>
-              </td>
-            </tr>
-          </table>
-        </div>
+      <div align="middle">
+        <table style="width: 90%">
+          <tr align="center">
+            <td>
+              <img
+                src="static/gallery/octopus.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>Octopus</figcaption>
+            </td>
+            <td>
+              <img
+                src="static/gallery/panda.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>Panda</figcaption>
+            </td>
+            <td>
+              <img
+                src="static/gallery/roses.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>Bouquet of Roses</figcaption>
+            </td>
+          </tr>
+        </table>
+      </div>
 
-        <div align="middle">
-          <table style="width: 90%">
-            <tr align="center">
-              <td>
-                <img src="static/gallery/shrek.png" align="middle" width="500px" height="500px" />
-                <figcaption>Shrek</figcaption>
-              </td>
-              <td>
-                <img src="static/gallery/snail.png" align="middle" width="500px" height="500px" />
-                <figcaption>Snail</figcaption>
-              </td>
-              <td>
-                <img src="static/gallery/telephone_booth.png" align="middle" width="500px" height="500px" />
-                <figcaption>British Telephone Booth</figcaption>
-              </td>
-            </tr>
-          </table>
-        </div>
-   
+      <div align="middle">
+        <table style="width: 90%">
+          <tr align="center">
+            <td>
+              <img
+                src="static/gallery/shrek.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>Shrek</figcaption>
+            </td>
+            <td>
+              <img
+                src="static/gallery/snail.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>Snail</figcaption>
+            </td>
+            <td>
+              <img
+                src="static/gallery/telephone_booth.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>British telephone booth</figcaption>
+            </td>
+          </tr>
+        </table>
+      </div>
 
       <div class="container is-max-desktop" style="margin-top: 2em">
         <div class="columns is-centered has-text-centered">
@@ -929,13 +1013,6 @@
                     href="https://developer.nvidia.com/blog/thinking-parallel-part-ii-tree-traversal-gpu/"
                     target="_blank"
                     >BVH on GPU</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://developer.nvidia.com/blog/thinking-parallel-part-iii-tree-construction-gpu/"
-                    target="_blank"
-                    >Z-order curve</a
                   >
                 </li>
                 <li>
@@ -975,35 +1052,51 @@
             <h4>Ralph Cao</h4>
             <ul>
               <li>Unity demo for the flocking algorithm</li>
-              <li>Reimplemented real time ray tracing in OpenCL from scratch based on homework 3, along with rewriting the camera math and camera movement code</li>
-              <li>Implemented flocking algorithm in OpenCL using a compute shader for speedup</li>
-              <li>Tested and implemented different GPU optimizations listed above</li>
+              <li>
+                Reimplemented real time ray tracing in OpenCL from scratch based
+                on homework 3, along with rewriting the camera math and camera
+                movement code
+              </li>
+              <li>
+                Implemented flocking algorithm in OpenCL using a compute shader
+                for speedup
+              </li>
+              <li>
+                Tested and implemented different GPU optimizations listed above
+              </li>
               <li>Implemented BVH visualizations</li>
             </ul>
             <h4>Arjun Damerla</h4>
             <ul>
-              <li>Implemented Ray Marching </li>
-              <li>Implemented different smoothing algorithms for ray marching, ultimately settling on one of them</li>
+              <li>Implemented Ray Marching</li>
+              <li>
+                Implemented different smoothing algorithms for ray marching,
+                ultimately settling on one of them
+              </li>
             </ul>
             <h4>Preston Fu</h4>
             <ul>
-              <li>Point cloud pipeline (LM prompting, 2D image generation, 3D point cloud generation, filtering, C++ numpy input)</li>
-              <li>Parts of the flocking kernels</li>
+              <li>
+                Point cloud pipeline (LM prompting, 2D image generation, 3D
+                point cloud generation, filtering, C++ numpy input)
+              </li>
+              <li>Parts of the camera and flocking kernels</li>
               <li>Timing utility functions for performance testing</li>
             </ul>
             <h4>Julia Sun</h4>
             <ul>
               <li>Assisted with first iteration of ray marching</li>
-              <li>Created project propsal, milestone report, and finalized final project webpage</li>
+              <li>
+                Created project propsal, milestone report, and finalized final
+                project webpage
+              </li>
             </ul>
           </div>
         </div>
       </div>
     </div>
 
-
-
-    <footer class="footer">
+    <footer class="footer" style="margin-top: 3em">
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-8">
