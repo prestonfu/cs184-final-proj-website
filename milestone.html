@@ -270,6 +270,34 @@
                 slowly, but we believe we can improve the rendering time by
                 adding BVH to our ray marching algorithm.
               </p>
+
+              <div align="middle">
+                    <table style="width:100%">
+                      <tr align="center">
+                        <td>
+                          <img src="static/images/bunny2.png" align="middle" width="400px"/>
+                          <figcaption>Rendered scene CBbunny.dae using raymarching</figcaption>
+                        </td>
+                      </tr>
+                    </table>
+                 </div>
+                 <br>
+                 <p>A visualization of ray marching algorithm:</p>
+                 <div align="middle">
+                  
+                  <table style="width:100%">
+                    <tr align="center">
+                      <td>
+                        <img src="static/images/raymarching.png" align="middle" width="400px"/>
+                        <figcaption></figcaption>
+                      </td>
+                    </tr>
+                  </table>
+               </div>
+               <p>From a ray's origin, draw the largest circle around the ray point without intersecting any of the objects 
+                in the scene, and then move the ray along its direction until it reaches the circle. Continue this process 
+                until it gets very close to an object (intersection), or when the radius around the point becomes arbitrarily 
+                large (no intersection).</p>
             </div>
           </div>
         </div>
