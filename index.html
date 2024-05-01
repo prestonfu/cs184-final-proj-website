@@ -1,57 +1,85 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="description"
-        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
-  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CS 184 Final Project: Text to 3D Cloud Point Simulator</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="description"
+      content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos."
+    />
+    <meta name="keywords" content="Nerfies, D-NeRF, NeRF" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Real-Time Ray Tracing for Flocking Point Clouds</title>
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"
+    ></script> -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
 
-    function gtag() {
-      dataLayer.push(arguments);
-    }
+      function gtag() {
+        dataLayer.push(arguments);
+      }
 
-    gtag('js', new Date());
+      gtag("js", new Date());
 
-    gtag('config', 'G-PYVRSFMDRL');
-  </script>
+      gtag("config", "G-PYVRSFMDRL");
+    </script>
 
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css?family=Google+Sans|IBM+Plex+Sans|Noto+Sans|Castoro"
+      rel="stylesheet"
+    />
 
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/favicon.jpg">
+    <link rel="stylesheet" href="./static/css/bulma.min.css" />
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css" />
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css" />
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css"
+    />
+    <link rel="stylesheet" href="./static/css/index.css" />
+    <link rel="icon" href="./static/images/favicon.jpg" />
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
-</head>
-<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+  </head>
+  <body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
 
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-<!--
-  <div class="navbar-menu">
+      <!-- <div class="navbar-menu">
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
       <a class="navbar-item" href="https://keunhong.com">
       <span class="icon">
@@ -78,37 +106,72 @@
             PhotoShape
           </a>
         </div>
-      </div>-->
+      </div>
     </div>
+  </div> -->
+    </nav>
 
-  </div>
-</nav>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title is-1 publication-title">
+                Real-Time Ray Tracing for Flocking Point Clouds
+              </h1>
+              <div class="is-size-5 publication-authors">
+                <span class="author-block"> <p>Ralph Cao</p></span>
+                <span class="author-block"> <p>3037721429</p></span>
+                <span class="author-block">
+                  <p>ralph_cow@</p>
+                </span>
+              </div>
+              <div class="is-size-5 publication-authors">
+                <span class="author-block"> <p>Arjun Damerla</p></span>
+                <span class="author-block"> <p>3036679871</p></span>
+                <span class="author-block">
+                  <p>arjundamerla@</p>
+                </span>
+              </div>
+              <div class="is-size-5 publication-authors">
+                <span class="author-block"> <p>Preston Fu</p></span>
+                <span class="author-block"> <p>3036364629</p></span>
+                <span class="author-block">
+                  <p>prestonfu@</p>
+                </span>
+              </div>
+              <div class="is-size-5 publication-authors">
+                <span class="author-block"> <p>Julia Sun</p></span>
+                <span class="author-block"> <p>3037171474</p></span>
+                <span class="author-block">
+                  <p>jsun28@</p>
+                </span>
+              </div>
+              <br />
+              <div class="is-size-5 publication-authors">
+                <span class="author-block"
+                  >CS 184, Computer Graphics and Imaging</span
+                >
+              </div>
 
+              <br />
 
-<section class="hero">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Text to 3D Cloud Point Simulator</h1>
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              <p>Ralph Cao, </p></span>
-            <span class="author-block">
-              <p>Arjun Damerla, </p></span>
-            <span class="author-block">
-              <p>Preston Fu, </p>
-            </span>
-            <span class="author-block">
-              <p>Julia Sun</p>
-            </span>
-          </div>
-          <br />
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">CS 184, Computer Graphics and Imaging</span>
-          </div>
+              <!-- <div align="middle">
+                <h2>
+                  <a
+                    href="https://docs.google.com/presentation/d/120M-5wzmt5IsNDmXZB47CACTrW2VtXqy05xqt6myKto/edit?usp=sharing"
+                    >Slides Link</a
+                  >
+                </h2>
+                <h2>
+                  <a
+                    href="https://drive.google.com/file/d/1ae08E61iPUZnDG8u-HIQmOJFnWpnZAq8/view"
+                    >Video Link</a
+                  >
+                </h2>
+              </div> -->
 
-          <!-- 
+              <!-- 
           <div class="column has-text-centered">
             <div class="publication-links">
               
@@ -160,14 +223,15 @@
                   <span>Data</span>
                   </a>
             </div>
-
+          -->
+              <!-- </div> -->
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
+    <!--
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
@@ -243,23 +307,43 @@
 </section>
 
 -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Overview</h2>
-        <div class="content has-text-justified">
-          <p>
-            Eventually, our project will go here. 
-          </p>
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <h2 class="title">TODO: insert demo video clip</h2>
+          </div>
         </div>
       </div>
-    </div>
-    <!--/ Abstract. -->
 
+      <br />
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified">
+              <p>
+                In this project, we implemented real-time rendering using ray
+                tracing and smoothened ray marching for large point clouds with
+                camera movement. Furthermore, we implemented a pipeline using
+                pre-trained machine learning models to generate 3D point clouds
+                from text. In order to accelerate our rendering, we utilized a
+                wide array of optimization techniques, including using GPU
+                acceleration from the OpenCL framework, BVH trees, and Morton
+                codes for Z-order space-filling curves. We also implemented a
+                boid flocking algorithm with a force toward our pre-generated
+                point clouds, which smoothly interpolates boid positions and
+                colors. With 4096 boids, we achieve how many FPS with some more
+                details, a somethingx speedup over ray tracing without
+                acceleration.
+              </p>
 
-    <!-- Paper video. 
+              <h2>TODO</h2>
+            </div>
+          </div>
+        </div>
+
+        <!-- Paper video. 
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Video</h2>
@@ -270,13 +354,188 @@
       </div>
     </div>
     / Paper video. -->
-  </div>
-</section>
+      </div>
 
-        
-    
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <h2 class="title is-3">Point Clouds</h2>
+            <div class="content has-text-justified">
+              <div align="middle">
+                <img
+                  src="static/images/pointcloudpipeline.png"
+                  align="middle"
+                  width="1000px"
+                />
+              </div>
+              <br />
+              <p>
+                Our approach is shown in the figure above. To collect point
+                clouds, we:
+              </p>
+              <ol>
+                <li>
+                  Generate text prompts with an LLM. We ran two prompts through
+                  Claude 3 independently to generate lists of prompts: one for
+                  real-life objects and well known characters for which I’d be
+                  able to find images on Google, and one for easily recognizable
+                  characters and objects performing whimsical actions.
+                </li>
+                <li>
+                  For the first list, we scraped images off Google — partially
+                  manually and partially with the
+                  <a href="https://serpapi.com/" target="_blank">Serp API</a>.
+                  For the second list, we ran prompts through
+                  <a href="https://openai.com/dall-e-3" target="_blank"
+                    >Dall-E 3</a
+                  >. In each case, we specified that the image should have a
+                  white background.
+                </li>
+                <li>
+                  Preprocess the images, using a publicly available
+                  <a
+                    href="https://github.com/nadermx/backgroundremover"
+                    target="_blank"
+                    >background remover</a
+                  >
+                  to remove image backgrounds and resizing and centering images.
+                </li>
+                <li>
+                  Input the resulting images to
+                  <a href="https://openai.com/research/point-e" target="_blank"
+                    >Point-E</a
+                  >, which generates a 3D point cloud. We experimented with all
+                  combinations of {preprocessed, not preprocessed} and {300M,
+                  1B} model size, yielding a size-1024 point cloud $(x, y, z, r,
+                  g, b)$. Then we ran a pre-trained upsampler to yield a
+                  size-4096 point cloud of the same format. The model weights
+                  are publicly available, and we ran the scripts on one V100
+                  using Google Compute Engine. The total inference runtime for
+                  654 images was around 6 hours. (Our original hope in this
+                  project was that a user would enter text and have a point
+                  cloud within seconds, but this inference procedure is the
+                  bottleneck, in terms of time and cost.)
 
-<!-- 
+                  <br />
+                  In general, we find that skipping the preprocessing step
+                  consistently results in noise or artifacts in the edges and
+                  corners of generated point clouds. We do not see a strong
+                  change in model performance between 300M and 1B parameters for
+                  contiguous objects, and that the common failure modes of
+                  extraneous black pixels and geometrically flat outputs appear
+                  consistently in both cases. For scenes containing multiple
+                  disjoint objects, we found that the 1B model generally
+                  performed better.
+                </li>
+              </ol>
+              <p>
+                The last step above resulted in point clouds with highly
+                variable quality. We wrote a script to efficiently manually
+                process these outputs. Out of around 150 randomly-sampled
+                outputs, 40 were selected for use in our end product.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container is-max-desktop" style="margin-top: 2em">
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <h2 class="title is-3">Flocking</h2>
+            <div class="content has-text-justified">
+              <div align="middle">
+                <img
+                  src="static/images/flocking.png"
+                  align="middle"
+                  width="500px"
+                />
+              </div>
+              <br />
+              <p>
+                Our flocking model incorporates the forces listed above. Each
+                force has an associated radius, indicating that the force
+                between two boids will only apply in the case that they are
+                within some maximum $\ell_2$ distance. Each force also has a
+                corresponding coefficient. These coefficients needed to be tuned
+                quite carefully to achieve reasonable flocking behaviors: for
+                instance, separation requires a specific value such that the
+                boids do not suffer from mode collapse, and we introduced a weak
+                “centering” force toward the origin to counteract the effect of
+                “containing” trapping boids to the surface of a sphere. Our
+                “arrival” force uses targets as the $(x,y,z)$ points generated
+                in our point cloud procedure, which have been randomized by
+                default to enable more cohesive transitions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container is-max-desktop" style="margin-top: 2em">
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <h2 class="title is-3">Flocking</h2>
+            <div class="content has-text-justified">
+              <div align="middle">
+                <img
+                  src="static/images/flocking.png"
+                  align="middle"
+                  width="500px"
+                />
+              </div>
+              <br />
+              <p>
+                Our flocking model incorporates the forces listed above. Each
+                force has an associated radius, indicating that the force
+                between two boids will only apply in the case that they are
+                within some maximum $\ell_2$ distance. Each force also has a
+                corresponding coefficient. These coefficients needed to be tuned
+                quite carefully to achieve reasonable flocking behaviors: for
+                instance, separation requires a specific value such that the
+                boids do not suffer from mode collapse, and we introduced a weak
+                “centering” force toward the origin to counteract the effect of
+                “containing” trapping boids to the surface of a sphere. Our
+                “arrival” force uses targets as the $(x,y,z)$ points generated
+                in our point cloud procedure, which have been randomized by
+                default to enable more cohesive transitions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container is-max-desktop" style="margin-top: 2em">
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <h2 class="title is-3">References</h2>
+            <div class="content has-text-justified">
+              <p>External resources were useful for the following:</p>
+              <ul>
+                <li>
+                  <a href="https://jamie-wong.com/2016/07/15/ray-marching-signed-distance-functions/#the-raymarching-algorithm" target="_blank">Ray Marching algorithm and smoothing</a>
+                </li>
+                <li><a href="https://iquilezles.org/articles/smin/"" target="_blank">Smooth minimum SDF</a></li>
+                <li>
+                  <a href="https://developer.nvidia.com/blog/thinking-parallel-part-ii-tree-traversal-gpu/" target="_blank">BVH on GPU</a>
+                </li>
+                <li>
+                  <a href="https://cs184.eecs.berkeley.edu/sp24/lecture/9/ray-tracing-and-acceleration-str" target="_blank">Ray intersection with axis aligned box</a>
+                </li>
+                <li>
+                  <a href="https://github.com/9prady9/CLGLInterop" target="_blank">OpenCL + OpenGL Interop</a>
+                </li>
+                <li>
+                  Camera code from Homework 3
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 
 <section class="section">
   <div class="container is-max-desktop">
 
@@ -323,7 +582,7 @@
       <div class="column is-full-width">
         <h2 class="title is-3">Animation</h2>-->
 
-        <!-- Interpolating. 
+    <!-- Interpolating. 
         <h3 class="title is-4">Interpolating states</h3>
         <div class="content has-text-justified">
           <p>
@@ -357,7 +616,7 @@
         <br/>
         / Interpolating. -->
 
-        <!-- Re-rendering. 
+    <!-- Re-rendering. 
         <h3 class="title is-4">Re-rendering the input video</h3>
         <div class="content has-text-justified">
           <p>
@@ -381,8 +640,6 @@
       </div>
     </div>
       -->
-   
-
 
     <!--Concurrent Work. 
     <div class="columns is-centered">
@@ -426,39 +683,19 @@
 }</code></pre>
   </div>
 </section>
+-->
 
-
-<footer class="footer">
-  <div class="container">
-    <div class="content has-text-centered">
-      <a class="icon-link"
-         href="./static/videos/nerfies_paper.pdf">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-          <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-          <p>
-            This means you are free to borrow the <a
-              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
-            we just ask that you link back to this page in the footer.
-            Please remember to remove the analytics code included in the header of the website which
-            you do not want on your website.
-          </p>
+    <footer class="footer">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <div class="content" align="middle">
+              The website design is adapted from
+              <a href="https://github.com/nerfies/nerfies.github.io">here</a>.
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>-->
-</footer>
-
-</body>
+    </footer>
+  </body>
 </html>
