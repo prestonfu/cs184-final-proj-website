@@ -321,10 +321,10 @@
 
               <p>
                 Our ray tracing and smoothed ray marching algorithm support
-                large point clouds and interactive camera movements. Furthermore,
-                we implemented a pipeline using pre-trained machine learning
-                models to generate 3D point clouds from text. In order to
-                accelerate our rendering, we utilized a wide array of
+                large point clouds and interactive camera movements.
+                Furthermore, we implemented a pipeline using pre-trained machine
+                learning models to generate 3D point clouds from text. In order
+                to accelerate our rendering, we utilized a wide array of
                 optimization techniques, including using GPU acceleration from
                 the OpenCL framework, BVH trees, and Morton codes for Z-order
                 space-filling curves. We also implemented a boid flocking
@@ -462,6 +462,14 @@
                 Our particle simulation is implemented using forward Euler. We
                 found that it was sufficiently numerically stable and left a
                 small memory footprint.
+              </p>
+              <p>
+                Particle colors are updated by linear interpolation, with
+                weights determined by the timestep. That is, $\mathbf c(t+1) =(1
+                - \Delta t) \mathbf c(t) + \Delta t \mathbf
+                c_{\text{target}}(t)$, where $\mathbf c = (r, g, b)$ denotes a
+                particle's color as a function of time and $\mathbf c_{\text{target}}$
+                denotes the target color given by Point-E.
               </p>
             </div>
           </div>
