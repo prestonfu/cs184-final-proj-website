@@ -468,8 +468,8 @@
                 weights determined by the timestep. That is, $\mathbf c(t+1) =(1
                 - \Delta t) \mathbf c(t) + \Delta t \mathbf
                 c_{\text{target}}(t)$, where $\mathbf c = (r, g, b)$ denotes a
-                particle's color as a function of time and $\mathbf c_{\text{target}}$
-                denotes the target color given by Point-E.
+                particle's color as a function of time and $\mathbf
+                c_{\text{target}}$ denotes the target color given by Point-E.
               </p>
             </div>
           </div>
@@ -634,8 +634,8 @@
               </ul>
               <p>
                 Below are demonstrations of our approach (this mode is available
-                with a keyboard toggle), where each color represents a work
-                group.
+                with a keyboard toggle), where each color represents a leaf
+                node.
               </p>
               <div align="middle">
                 <table style="width: 100%">
@@ -768,6 +768,43 @@
 
               <br />
 
+              <h4>Work group size</h4>
+              <p>
+                Our experiments use 4096 boids, 1 ray per pixel, and 1 light
+                sample per pixel.
+              </p>
+              <p>
+                With a larger work group size, we can better take advantage of
+                local memory speedups, however we have larger bounding boxes so
+                we have a smaller chance to skip BVH leaves. After experimenting
+                with work group size, we found that an 8x8 work group offered
+                the best performance when combined with the BVH, giving us 64
+                leaves with 64 spheres each. Compared to the 16x16 maximal work
+                group size offered by the Apple M1 GPU, this was a roughly 25%
+                speedup.
+              </p>
+              <div align="center">
+                <table>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">FPS</th>
+                    <th scope="col">Ray casting time (ms)</th>
+                  </tr>
+                  <tr>
+                    <th scope="row">16 x 16</th>
+                    <td>37</td>
+                    <td>20.2</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">8 x 8</th>
+                    <td>44</td>
+                    <td>15.6</td>
+                  </tr>
+                </table>
+              </div>
+
+              <br />
+
               <h4>Acceleration algorithm</h4>
               <p>
                 Our experiments use ray tracing with light blocking, 4096 boids,
@@ -781,7 +818,7 @@
                 space filling curve. In this way, points within each contiguous
                 chunk of 256 should be close to each other.
               </p>
-              <p>This optimization gave us a 3.2x speedup.</p>
+              <p>This optimization gave us a 4x speedup.</p>
               <div align="center">
                 <table>
                   <tr>
@@ -793,24 +830,24 @@
                   </tr>
                   <tr>
                     <th scope="row">None</th>
-                    <td>12.5</td>
+                    <td>13.4</td>
                     <td>0</td>
-                    <td>72.2</td>
+                    <td>67.1</td>
                     <td>3.9</td>
                   </tr>
                   <tr>
                     <th scope="row">BVH</th>
-                    <td>40</td>
-                    <td>0.0014</td>
-                    <td>19.2</td>
+                    <td>42.6</td>
+                    <td>0.94</td>
+                    <td>16.9</td>
                     <td>4.0</td>
                   </tr>
                   <tr>
                     <th scope="row">Z-order curve</th>
-                    <td>37</td>
-                    <td>0.00069</td>
-                    <td>20.2</td>
-                    <td>3.9</td>
+                    <td>33</td>
+                    <td>0.35</td>
+                    <td>24</td>
+                    <td>4.0</td>
                   </tr>
                 </table>
               </div>
@@ -935,9 +972,7 @@
                 width="500px"
                 height="500px"
               />
-              <figcaption>
-                Lochness Monster Knitting a Sweater for Nessie
-              </figcaption>
+              <figcaption>Loch Ness Monster Knitting a Sweater</figcaption>
             </td>
           </tr>
         </table>
