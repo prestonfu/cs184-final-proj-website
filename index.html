@@ -328,7 +328,7 @@
                 One has the full 4096 boids with very basic ray tracing and is
                 optimized for frame rate, while the other has only 512 boids and
                 implements ray marching with smoothing as well as ray tracing
-                with soft shadows.
+                with light blocking and soft shadows.
               </p>
 
               <p>
@@ -426,7 +426,8 @@
                 The last step above resulted in point clouds with highly
                 variable quality. We wrote a script to efficiently manually
                 process these outputs. Out of around 150 randomly-sampled
-                outputs, 40 were selected for use in our end product.
+                outputs, 40 were selected for use in our end product, and 
+                16 are available to view in the application.
               </p>
             </div>
           </div>
@@ -483,6 +484,12 @@
                 particle's color as a function of time and $\mathbf
                 c_{\text{target}}$ denotes the target color given by Point-E.
               </p>
+              <div align="center">
+                <video width="640" height="560" controls>
+                  <source src="static/videos/flocking_4096.mov" />
+                </video>
+                <figcaption>Boid flocking with 4096 boids</figcaption>
+              </div>
             </div>
           </div>
         </div>
@@ -532,7 +539,7 @@
               <br />
 
               <p>
-                We implemented boid smoothing, such that two nearby spheres can
+                We implemented smoothing with ray marching, such that two nearby spheres can
                 merge and thus smooth out their collective surface. There are a
                 <a href="https://iquilezles.org/articles/smin/" target="_blank"
                   >wide variety</a
@@ -555,12 +562,23 @@
                 and use these partial derivatives as components to compute the
                 normal vector on the smoothed surface at $\mathbf p$.
               </p>
-
-              <div align="center">
-                <video width="640" height="560" controls>
-                  <source src="static/videos/smooth_whale.mov" />
-                </video>
-                <figcaption>Blue Whale with boid smoothing</figcaption>
+              <div align="middle">
+                <table style="width: 100%">
+                  <tr align="center">
+                    <td>
+                      <video width="640" height="560" controls>
+                        <source src="static/videos/smooth_whale.mov" />
+                      </video>
+                      <figcaption>Blue Whale with smoothing, 512 boids</figcaption>
+                    </td>
+                    <td>
+                      <video width="640" height="560" controls>
+                        <source src="static/videos/flocking_smoothing.mov" />
+                      </video>
+                      <figcaption>Boid flocking with smoothing, 1024 boids</figcaption>
+                    </td>
+                  </tr>
+                </table>
               </div>
             </div>
           </div>
@@ -570,8 +588,67 @@
       <div class="container is-max-desktop" style="margin-top: 2em">
         <div class="columns is-centered has-text-centered">
           <div class="column">
+            <h2 class="title is-3">Ray Tracing</h2>
+            <div class="content has-text-justified">
+              <p>
+                We implemented traditional ray tracing as well using OpenCL as
+                a faster rendering option. We based our implementation off of
+                Homework 3 and translated it to an OpenCL kernel with specifically
+                the task of rendering multiple colored, diffuse spheres with a 
+                single area light with multiple sample rays and multiple direct lighting
+                samples. Due to OpenCL limitations and a lack of time, 
+                we were only able to implement zero bounce and direct lighting 
+                radiance. We were able to implement light blocking, however, leading 
+                to some nice soft shadow effects. Unfortunately, in order to maintain
+                a smooth frame rate, we do have a large amount of noise present in our 
+                final renders.
+              </p>
+
+              <div align="center">
+                <video width="640" height="560" controls>
+                  <source src="static/videos/basketball_shadows.mov" />
+                </video>
+                <figcaption>Basketball with light blocking</figcaption>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="container is-max-desktop" style="margin-top: 2em">
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
             <h2 class="title is-3">OpenCL</h2>
             <div class="content has-text-justified">
+              <p>
+                Due to the low frame rate of CPU ray tracing, we decided to
+                accelerate our rendering using OpenCL. Since Apple dropped 
+                support for OpenGL, we were unable to use the built in OpenGL
+                compute shaders for our ray tracing kernel. After surveying options
+                such as Vulkan, Metal, and OpenCL, we ultimately decided on OpenCL
+                due to its platform portability and its mix of ease of use and
+                low level optimization capabilities. We used OpenCL in this project
+                to parallelize the flocking algorithm and all three of our rendering
+                implementations.
+              </p>
+              <p>
+                Our flocking algorithm was split into two kernels, one for calculating
+                accelerations based on the positions of other boids and one for integrating 
+                the acceleration and updating position and velocity. These kernels 
+                were executed once for each particle in the simulation on the GPU.
+              </p>
+              <p>
+                In our ray tracing and ray marching kernels, we randomly generate rays 
+                from each pixel of the camera and check for intersections with 
+                each sphere in the scene. If we detect a collision, we then cast extra 
+                rays from that collision point, randomly sampling from the area light
+                in order to determine the radiance for that pixel. This is run in
+                parallel on the GPU with one thread per pixel. For ray marching,
+                we had to iterate our position based on the signed distance field
+                to find intersections which significantly increased rendering time
+                but allowed us to implement smoothing without having to modify meshes.
+              </p>
               <p>
                 We ran into a number of challenges when using OpenCL. None of us
                 had any GPU experience on this level or any experience with
@@ -608,10 +685,26 @@
                 the Results section.
               </p>
               <p>
-                Our work group optimizations were generally based on finding a
-                spatial sorting of the points using a permutation index array
-                that grouped together points that were local and minimized the
-                bounding boxes for each.
+                Our work group optimizations were generally based on finding a 
+                spatial sorting of the points using a permutation index array 
+                that grouped together points that were local and minimized the 
+                bounding boxes for each. This is a very similar approach to a 
+                standard BVH, however we chose to uniformly fix the size of each 
+                leaf to match the work group size and only generate bounding boxes 
+                for the leaves instead of traversing the BVH hierarchy from the root.
+              </p>
+              <p>
+                Then, for the intersection check in our ray tracing kernel, each 
+                thread would first intersect their ray with the bounding box of 
+                the current BVH leaf. If all rays missed the bounding box, all 
+                threads in the work group would skip to the next BVH leaf. In 
+                this way, we can take advantage of the fact that rays from within 
+                a work group have similar trajectories and avoid expensive 
+                unnecessary accesses to global memory.
+              </p>
+              <p>
+                We tested two different acceleration structures to generate the 
+                BVH leaves used in our acceleration algorithm.
               </p>
               <ul>
                 <li>
@@ -638,16 +731,16 @@
                   away on the curve. This parameterization for a space-filling
                   curve is motivated by parallel radix sort.
                   <br />
-                  A disadvantage of the Z-order curve is that there are large
-                  jumps between consecutive points, which results in
-                  discontinuous work groups and thus excessively large bounding
-                  boxes.
+                  A disadvantage of the Z-order curve is that there are occasionally
+                  large jumps between consecutive points, which results in discontinuous
+                  work groups and thus excessively large bounding boxes with moderate 
+                  probability.
                 </li>
               </ul>
               <p>
-                Below are demonstrations of our approach (this mode is available
-                with a keyboard toggle), where each color represents a leaf
-                node.
+                Below are demonstrations of our two approaches (this mode is 
+                available with a keyboard toggle), where each color represents 
+                a leaf node.
               </p>
               <div align="middle">
                 <table style="width: 100%">
@@ -668,7 +761,7 @@
                         width="400px"
                         height="400px"
                       />
-                      <figcaption>Morton Acceleration</figcaption>
+                      <figcaption>Z-Order Sort Acceleration</figcaption>
                     </td>
                   </tr>
                 </table>
@@ -710,12 +803,13 @@
                 our project to this environment, including:
               </p>
               <ul>
-                <li>Camera movement and zoom through click and drag.</li>
+                <li>Camera movement, zoom through click, drag, and scroll.</li>
                 <li>
-                  Keyboard inputs to switch between different point clouds.
+                  Keyboard inputs to switch between different point clouds and 
+                  pause the simulation.
                 </li>
                 <li>
-                  Debug scripts to show each work group’s particles in a
+                  Debug scripts to show each BVH leaf node's particles in a
                   different color.
                 </li>
                 <li>
@@ -735,7 +829,7 @@
             <div class="content has-text-justified">
               <p>
                 All of our experiments use a pixel resolution of 800 x 600. All
-                FPS and timing data are averages over 1000 frames displayed.
+                FPS and timing data are averages over 500 frames.
               </p>
 
               <h4>Ray algorithm</h4>
@@ -800,7 +894,7 @@
                   <tr>
                     <th scope="col"></th>
                     <th scope="col">FPS</th>
-                    <th scope="col">Ray casting time (ms)</th>
+                    <th scope="col">Rendering time (ms)</th>
                   </tr>
                   <tr>
                     <th scope="row">16 x 16</th>
@@ -820,7 +914,7 @@
               <h4>Acceleration algorithm</h4>
               <p>
                 Our experiments use ray tracing with light blocking, 4096 boids,
-                1 ray per pixel, and 4 light sample per pixel.
+                1 ray per pixel, 4 light samples per pixel, and a 16x16 work group size.
               </p>
               <p>
                 We implemented a basic BVH of depth 4 with binary splits along
@@ -830,14 +924,20 @@
                 space filling curve. In this way, points within each contiguous
                 chunk of 256 should be close to each other.
               </p>
-              <p>This optimization gave us a 4x speedup.</p>
+              <p>
+                While the Z-order sort has a considerably lower construction time,
+                it is about 50% slower than the basic BVH, likely due to the 
+                discontinities causing unnecessarily large bounding boxes from our
+                arbitrary chunking.
+              </p>
+              <p>This optimization gave us a 4x speedup with the BVH approach.</p>
               <div align="center">
                 <table>
                   <tr>
                     <th scope="col"></th>
                     <th scope="col">FPS</th>
                     <th scope="col">Construction time (ms)</th>
-                    <th scope="col">Ray casting time (ms)</th>
+                    <th scope="col">Rendering time (ms)</th>
                     <th scope="col">Simulation time (ms)</th>
                   </tr>
                   <tr>
@@ -855,7 +955,7 @@
                     <td>4.0</td>
                   </tr>
                   <tr>
-                    <th scope="row">Z-order curve</th>
+                    <th scope="row">Z-order sort</th>
                     <td>33</td>
                     <td>0.35</td>
                     <td>24</td>
@@ -866,10 +966,10 @@
 
               <br />
 
-              <h4>GPU optimization</h4>
+              <h4>GPU Memory Optimization</h4>
               <p>
-                Our experiments use ray tracing without light blocking 4096
-                boids, 4 ray per pixel, and 4 light sample per pixel.
+                Our experiments use ray tracing without light blocking, 4096
+                boids, 4 rays per pixel, and 4 light samples per pixel.
               </p>
               <p>
                 Memory from the host program on the CPU must be uploaded to the
@@ -889,7 +989,7 @@
                   <tr>
                     <th scope="col"></th>
                     <th scope="col">FPS</th>
-                    <th scope="col">Ray casting time (ms)</th>
+                    <th scope="col">Rendering time (ms)</th>
                     <th scope="col">Simulation time (ms)</th>
                   </tr>
                   <tr>
@@ -1038,7 +1138,7 @@
             </td>
             <td>
               <img
-                src="static/gallery/snail.png"
+                src="static/gallery/whale.png"
                 align="middle"
                 width="500px"
                 height="500px"
@@ -1052,7 +1152,109 @@
                 width="500px"
                 height="500px"
               />
-              <figcaption>British telephone booth</figcaption>
+              <figcaption>British Telephone Booth</figcaption>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div align="middle">
+        <table style="width: 90%">
+          <tr align="center">
+            <td>
+              <img
+                src="static/gallery/coke.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>Coke Bottle</figcaption>
+            </td>
+            <td>
+              <img
+                src="static/gallery/deer.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>Family of Deer</figcaption>
+            </td>
+            <td>
+              <img
+                src="static/gallery/mario.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>Mario</figcaption>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div align="middle">
+        <table style="width: 90%">
+          <tr align="center">
+            <td>
+              <img
+                src="static/gallery/snail.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>Snail</figcaption>
+            </td>
+            <td>
+              <img
+                src="static/gallery/snail_bvh.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>Snail BVH Visualization</figcaption>
+            </td>
+            <td>
+              <img
+                src="static/gallery/snail_morton.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>Snail Z-Order Sort Visualization</figcaption>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div align="middle">
+        <table style="width: 90%">
+          <tr align="center">
+            <td>
+              <img
+                src="static/gallery/snail_raymarch.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>Snail Raymarching with Smoothing</figcaption>
+            </td>
+            <td>
+              <img
+                src="static/gallery/guitar_raymarch.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>Guitar Raymarching with Smoothing</figcaption>
+            </td>
+            <td>
+              <img
+                src="static/gallery/roses_shadow.png"
+                align="middle"
+                width="500px"
+                height="500px"
+              />
+              <figcaption>Bouquet of Roses with Light Blocking</figcaption>
             </td>
           </tr>
         </table>
