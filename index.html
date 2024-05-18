@@ -296,7 +296,7 @@
         <div class="columns is-centered has-text-centered">
           <div class="column">
             <div align="center">
-              <video width="720" height="640" controls>
+              <video width="720" height="640" loop autoplay muted plays-inline>
                 <source src="static/videos/demo.mp4" type="video/mp4" />
               </video>
               <!-- <img
@@ -426,8 +426,8 @@
                 The last step above resulted in point clouds with highly
                 variable quality. We wrote a script to efficiently manually
                 process these outputs. Out of around 150 randomly-sampled
-                outputs, 40 were selected for use in our end product, and 
-                16 are available to view in the application.
+                outputs, 40 were selected for use in our end product, and 16 are
+                available to view in the application.
               </p>
             </div>
           </div>
@@ -485,7 +485,14 @@
                 c_{\text{target}}$ denotes the target color given by Point-E.
               </p>
               <div align="center">
-                <video width="640" height="560" controls>
+                <video
+                  width="640"
+                  height="560"
+                  loop
+                  autoplay
+                  muted
+                  plays-inline
+                >
                   <source src="static/videos/flocking_4096.mov" />
                 </video>
                 <figcaption>Boid flocking with 4096 boids</figcaption>
@@ -528,7 +535,14 @@
               <p>Below is a video of our original approach.</p>
 
               <div align="center">
-                <video width="720" height="640" controls>
+                <video
+                  width="720"
+                  height="640"
+                  loop
+                  autoplay
+                  muted
+                  plays-inline
+                >
                   <source
                     src="static/videos/raymarchingvid.mp4"
                     type="video/mp4"
@@ -539,8 +553,9 @@
               <br />
 
               <p>
-                We implemented smoothing with ray marching, such that two nearby spheres can
-                merge and thus smooth out their collective surface. There are a
+                We implemented smoothing with ray marching, such that two nearby
+                spheres can merge and thus smooth out their collective surface.
+                There are a
                 <a href="https://iquilezles.org/articles/smin/" target="_blank"
                   >wide variety</a
                 >
@@ -566,16 +581,34 @@
                 <table style="width: 100%">
                   <tr align="center">
                     <td>
-                      <video width="640" height="560" controls>
+                      <video
+                        width="640"
+                        height="560"
+                        loop
+                        autoplay
+                        muted
+                        plays-inline
+                      >
                         <source src="static/videos/smooth_whale.mov" />
                       </video>
-                      <figcaption>Blue Whale with smoothing, 512 boids</figcaption>
+                      <figcaption>
+                        Blue Whale with smoothing, 512 boids
+                      </figcaption>
                     </td>
                     <td>
-                      <video width="640" height="560" controls>
+                      <video
+                        width="640"
+                        height="560"
+                        loop
+                        autoplay
+                        muted
+                        plays-inline
+                      >
                         <source src="static/videos/flocking_smoothing.mov" />
                       </video>
-                      <figcaption>Boid flocking with smoothing, 1024 boids</figcaption>
+                      <figcaption>
+                        Boid flocking with smoothing, 1024 boids
+                      </figcaption>
                     </td>
                   </tr>
                 </table>
@@ -591,21 +624,28 @@
             <h2 class="title is-3">Ray Tracing</h2>
             <div class="content has-text-justified">
               <p>
-                We implemented traditional ray tracing as well using OpenCL as
-                a faster rendering option. We based our implementation off of
-                Homework 3 and translated it to an OpenCL kernel with specifically
-                the task of rendering multiple colored, diffuse spheres with a 
-                single area light with multiple sample rays and multiple direct lighting
-                samples. Due to OpenCL limitations and a lack of time, 
-                we were only able to implement zero bounce and direct lighting 
-                radiance. We were able to implement light blocking, however, leading 
-                to some nice soft shadow effects. Unfortunately, in order to maintain
-                a smooth frame rate, we do have a large amount of noise present in our 
-                final renders.
+                We implemented traditional ray tracing as well using OpenCL as a
+                faster rendering option. We based our implementation off of
+                Homework 3 and translated it to an OpenCL kernel with
+                specifically the task of rendering multiple colored, diffuse
+                spheres with a single area light with multiple sample rays and
+                multiple direct lighting samples. Due to OpenCL limitations and
+                a lack of time, we were only able to implement zero bounce and
+                direct lighting radiance. We were able to implement light
+                blocking, however, leading to some nice soft shadow effects.
+                Unfortunately, in order to maintain a smooth frame rate, we do
+                have a large amount of noise present in our final renders.
               </p>
 
               <div align="center">
-                <video width="640" height="560" controls>
+                <video
+                  width="640"
+                  height="560"
+                  loop
+                  autoplay
+                  muted
+                  plays-inline
+                >
                   <source src="static/videos/basketball_shadows.mov" />
                 </video>
                 <figcaption>Basketball with light blocking</figcaption>
@@ -615,7 +655,6 @@
         </div>
       </div>
 
-
       <div class="container is-max-desktop" style="margin-top: 2em">
         <div class="columns is-centered has-text-centered">
           <div class="column">
@@ -623,31 +662,34 @@
             <div class="content has-text-justified">
               <p>
                 Due to the low frame rate of CPU ray tracing, we decided to
-                accelerate our rendering using OpenCL. Since Apple dropped 
+                accelerate our rendering using OpenCL. Since Apple dropped
                 support for OpenGL, we were unable to use the built in OpenGL
-                compute shaders for our ray tracing kernel. After surveying options
-                such as Vulkan, Metal, and OpenCL, we ultimately decided on OpenCL
-                due to its platform portability and its mix of ease of use and
-                low level optimization capabilities. We used OpenCL in this project
-                to parallelize the flocking algorithm and all three of our rendering
-                implementations.
+                compute shaders for our ray tracing kernel. After surveying
+                options such as Vulkan, Metal, and OpenCL, we ultimately decided
+                on OpenCL due to its platform portability and its mix of ease of
+                use and low level optimization capabilities. We used OpenCL in
+                this project to parallelize the flocking algorithm and all three
+                of our rendering implementations.
               </p>
               <p>
-                Our flocking algorithm was split into two kernels, one for calculating
-                accelerations based on the positions of other boids and one for integrating 
-                the acceleration and updating position and velocity. These kernels 
-                were executed once for each particle in the simulation on the GPU.
+                Our flocking algorithm was split into two kernels, one for
+                calculating accelerations based on the positions of other boids
+                and one for integrating the acceleration and updating position
+                and velocity. These kernels were executed once for each particle
+                in the simulation on the GPU.
               </p>
               <p>
-                In our ray tracing and ray marching kernels, we randomly generate rays 
-                from each pixel of the camera and check for intersections with 
-                each sphere in the scene. If we detect a collision, we then cast extra 
-                rays from that collision point, randomly sampling from the area light
-                in order to determine the radiance for that pixel. This is run in
-                parallel on the GPU with one thread per pixel. For ray marching,
-                we had to iterate our position based on the signed distance field
-                to find intersections which significantly increased rendering time
-                but allowed us to implement smoothing without having to modify meshes.
+                In our ray tracing and ray marching kernels, we randomly
+                generate rays from each pixel of the camera and check for
+                intersections with each sphere in the scene. If we detect a
+                collision, we then cast extra rays from that collision point,
+                randomly sampling from the area light in order to determine the
+                radiance for that pixel. This is run in parallel on the GPU with
+                one thread per pixel. For ray marching, we had to iterate our
+                position based on the signed distance field to find
+                intersections which significantly increased rendering time but
+                allowed us to implement smoothing without having to modify
+                meshes.
               </p>
               <p>
                 We ran into a number of challenges when using OpenCL. None of us
@@ -685,25 +727,26 @@
                 the Results section.
               </p>
               <p>
-                Our work group optimizations were generally based on finding a 
-                spatial sorting of the points using a permutation index array 
-                that grouped together points that were local and minimized the 
-                bounding boxes for each. This is a very similar approach to a 
-                standard BVH, however we chose to uniformly fix the size of each 
-                leaf to match the work group size and only generate bounding boxes 
-                for the leaves instead of traversing the BVH hierarchy from the root.
+                Our work group optimizations were generally based on finding a
+                spatial sorting of the points using a permutation index array
+                that grouped together points that were local and minimized the
+                bounding boxes for each. This is a very similar approach to a
+                standard BVH, however we chose to uniformly fix the size of each
+                leaf to match the work group size and only generate bounding
+                boxes for the leaves instead of traversing the BVH hierarchy
+                from the root.
               </p>
               <p>
-                Then, for the intersection check in our ray tracing kernel, each 
-                thread would first intersect their ray with the bounding box of 
-                the current BVH leaf. If all rays missed the bounding box, all 
-                threads in the work group would skip to the next BVH leaf. In 
-                this way, we can take advantage of the fact that rays from within 
-                a work group have similar trajectories and avoid expensive 
-                unnecessary accesses to global memory.
+                Then, for the intersection check in our ray tracing kernel, each
+                thread would first intersect their ray with the bounding box of
+                the current BVH leaf. If all rays missed the bounding box, all
+                threads in the work group would skip to the next BVH leaf. In
+                this way, we can take advantage of the fact that rays from
+                within a work group have similar trajectories and avoid
+                expensive unnecessary accesses to global memory.
               </p>
               <p>
-                We tested two different acceleration structures to generate the 
+                We tested two different acceleration structures to generate the
                 BVH leaves used in our acceleration algorithm.
               </p>
               <ul>
@@ -731,16 +774,16 @@
                   away on the curve. This parameterization for a space-filling
                   curve is motivated by parallel radix sort.
                   <br />
-                  A disadvantage of the Z-order curve is that there are occasionally
-                  large jumps between consecutive points, which results in discontinuous
-                  work groups and thus excessively large bounding boxes with moderate 
-                  probability.
+                  A disadvantage of the Z-order curve is that there are
+                  occasionally large jumps between consecutive points, which
+                  results in discontinuous work groups and thus excessively
+                  large bounding boxes with moderate probability.
                 </li>
               </ul>
               <p>
-                Below are demonstrations of our two approaches (this mode is 
-                available with a keyboard toggle), where each color represents 
-                a leaf node.
+                Below are demonstrations of our two approaches (this mode is
+                available with a keyboard toggle), where each color represents a
+                leaf node.
               </p>
               <div align="middle">
                 <table style="width: 100%">
@@ -805,7 +848,7 @@
               <ul>
                 <li>Camera movement, zoom through click, drag, and scroll.</li>
                 <li>
-                  Keyboard inputs to switch between different point clouds and 
+                  Keyboard inputs to switch between different point clouds and
                   pause the simulation.
                 </li>
                 <li>
@@ -914,7 +957,8 @@
               <h4>Acceleration algorithm</h4>
               <p>
                 Our experiments use ray tracing with light blocking, 4096 boids,
-                1 ray per pixel, 4 light samples per pixel, and a 16x16 work group size.
+                1 ray per pixel, 4 light samples per pixel, and a 16x16 work
+                group size.
               </p>
               <p>
                 We implemented a basic BVH of depth 4 with binary splits along
@@ -925,12 +969,14 @@
                 chunk of 256 should be close to each other.
               </p>
               <p>
-                While the Z-order sort has a considerably lower construction time,
-                it is about 50% slower than the basic BVH, likely due to the 
-                discontinities causing unnecessarily large bounding boxes from our
-                arbitrary chunking.
+                While the Z-order sort has a considerably lower construction
+                time, it is about 50% slower than the basic BVH, likely due to
+                the discontinities causing unnecessarily large bounding boxes
+                from our arbitrary chunking.
               </p>
-              <p>This optimization gave us a 4x speedup with the BVH approach.</p>
+              <p>
+                This optimization gave us a 4x speedup with the BVH approach.
+              </p>
               <div align="center">
                 <table>
                   <tr>
